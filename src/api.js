@@ -29,7 +29,7 @@ export const DEFAULT_FILTERS = {
   q: "",
   category: "",
   sort: "went_live",
-  days: "7",
+  days: "",
   drMin: "",
 };
 
@@ -51,9 +51,9 @@ export function buildParams(filters, from = 0) {
       String(Math.max(0, Math.min(100, Number(filters.drMin) || 0))),
     );
   }
-  if (filters.days) {
+  if (!q && filters.days) {
     const d = new Date(Date.now() - Number(filters.days) * 864e5);
-    p.set("from_date", d.toISOString().slice(0, 10)); // фільтр за went_live
+    p.set("from_date", d.toISOString().slice(0, 10)); // фільтр за went_live; для пошуку API дає 0 результатів
   }
   return p;
 }

@@ -11,10 +11,14 @@ export function useStats() {
     fetchStats(c.signal)
       .then((s) => {
         setStats(s.ai_startups || null);
-        const keys = (s.top_ai_categories || []).map((x) => x.key).filter(Boolean);
+        const keys = (s.top_ai_categories || [])
+          .map((x) => x.key)
+          .filter(Boolean);
         if (keys.length) setCategories(keys);
       })
-      .catch(() => {});
+      .catch((e) => {
+        if (e?.name === "AbortError") return;
+      });
     return () => c.abort();
   }, []);
 
