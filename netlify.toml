@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api.php"
+  to = "https://freeserp.ai/api.php"
+  status = 200
+  force = true
